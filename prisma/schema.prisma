@@ -15,7 +15,7 @@ model User {
   email            String    @unique
   name             String
   password         String
-  phone            String
+  phone            String    @unique
   created_at       DateTime  @default(now())
   updated_at       DateTime  @updatedAt
   user_type        UserType
@@ -55,7 +55,7 @@ model Message {
   home       Home     @relation(fields: [home_id], references: [id])
   created_at DateTime @default(now())
   realtor_id Int
-  realtor    User     @relation("realtor_messages", fields: [ realtor_id], references: [id])
+  realtor    User     @relation("realtor_messages", fields: [realtor_id], references: [id])
   buyer_id   Int
   buyer      User     @relation("buyer_messages", fields: [buyer_id], references: [id])
 }
