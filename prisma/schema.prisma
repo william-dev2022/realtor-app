@@ -32,6 +32,8 @@ model Home {
   city                String
   listed_data         DateTime     @default(now())
   land_size           Float
+  created_at          DateTime     @default(now())
+  updated_at          DateTime     @updatedAt
   property_type       PropertyType
   images              Image[]
   realtor_id          Int
