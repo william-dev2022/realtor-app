@@ -41,7 +41,7 @@ export class AuthService {
           user_type: userType
         }
       });
-      return this.generateJWT(user.name, user.id);
+      return this.generateJWT(user.email, user.id);
     } catch (error) {
       // if (error instanceof Prisma.PrismaClientKnownRequestError) {
       //   if (error.code === "P2002") {
@@ -68,16 +68,16 @@ export class AuthService {
     const isValidPassword = await bcrypt.compare(password, hashedPassword);
 
     if (isValidPassword) {
-      return this.generateJWT(user.name, user.id);
+      return this.generateJWT(user.email, user.id);
     }
     throw new HttpException("Invalid credentials", 400);
   }
 
-  private generateJWT(name: string, id: number) {
+  private generateJWT(email: string, id: number) {
     const userToken = jwt.sign(
       {
         id,
-        name
+        email
       },
       process.env.JSON_TOKEN_KEY,
       {expiresIn: 36000}
